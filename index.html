@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital RP</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #ffffff;
+            background: linear-gradient(135deg, #0a0a23 0%, #1a1a2e 50%, #16213e 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(10, 10, 35, 0.95);
+            backdrop-filter: blur(15px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(88, 101, 242, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #5865f2, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .discord-icon {
+            width: 32px;
+            height: 32px;
+            background: #5865f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #5865f2;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #5865f2;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .discord-btn {
+            background: linear-gradient(135deg, #5865f2, #7289da);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23ffffff" stroke-width="0.5" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, #5865f2, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease;
+            font-weight: 900;
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.3s both;
+            font-weight: 300;
+        }
+
+        .hero .description {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.6s both;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, #5865f2, #7289da);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(88, 101, 242, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        /* Discord Integration Section */
+        .discord-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(88, 101, 242, 0.1), rgba(114, 137, 218, 0.1));
+            border-top: 1px solid rgba(88, 101, 242, 0.3);
+            border-bottom: 1px solid rgba(88, 101, 242, 0.3);
+        }
+
+        .discord-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .discord-info h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #5865f2, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .discord-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .discord-features li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.1rem;
+        }
+
+        .discord-features li::before {
+            content: '✓';
+            background: #5865f2;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .discord-widget {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(88, 101, 242, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .discord-invite {
+            background: linear-gradient(135deg, #5865f2, #7289da);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(88, 101, 242, 0.4);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .discord-invite:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(88, 101, 242, 0.6);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            background: linear-gradient(135deg, #ffffff, #5865f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            border: 1px solid rgba(88, 101, 242, 0.2);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(88, 101, 242, 0.2);
+            background: rgba(88, 101, 242, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #5865f2, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #5865f2;
+        }
+
+        /* Application Process */
+        .application {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(88, 101, 242, 0.1));
+        }
+
+        .application-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .application h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #00d4ff, #5865f2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(88, 101, 242, 0.3);
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #5865f2, #00d4ff);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 10, 35, 0.95);
+            padding: 3rem 0;
+            border-top: 1px solid rgba(88, 101, 242, 0.3);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #5865f2;
+            margin-bottom: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(88, 101, 242, 0.3);
+            opacity: 0.8;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(88, 101, 242, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(88, 101, 242, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .discord-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Modal para Discord */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0a0a23, #1a1a2e);
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            text-align: center;
+            border: 2px solid #5865f2;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #5865f2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="discord-icon">N</div>
+                Capital RP
+            </div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#discord">Discord</a></li>
+                <li><a href="#caracteristicas">Características</a></li>
+                <li><a href="#aplicacion">Aplicación</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+            <a href="#" class="discord-btn pulse" onclick="openDiscordModal()">
+                💬 Únete al Discord
+            </a>
+        </nav>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1>Capital RP</h1>
+            <p class="subtitle">El Futuro del Roleplay Profesional</p>
+            <p class="description">
+                Únete a la comunidad más selecta y profesional de roleplay. 
+                Donde cada historia importa y cada personaje tiene su lugar.
+            </p>
+                <a href="#caracteristicas" class="cta-secondary">Conoce Más</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="discord" class="discord-section">
+        <div class="container">
+            <div class="discord-content">
+                <div class="discord-info">
+                    <h2>🎯 Únete a Nuestro Discord</h2>
+                    <ul class="discord-features">
+                        <li>Comunidad activa 24/7</li>
+                        <li>Canales especializados por departamento</li>
+                        <li>Sistema de tickets para soporte</li>
+                        <li>Eventos y actividades exclusivas</li>
+                        <li>Staff dedicado y profesional</li>
+                    </a>
+                </div>
+                <div class="discord-widget">
+                    <h3 style="margin-bottom: 1rem; color: #5865f2;">Estado del Servidor</h3>
+                    <div style="background: rgba(88, 101, 242, 0.1); padding: 1.5rem; border-radius: 15px; margin-bottom: 1rem;">
+                        <p style="font-size: 2rem; font-weight: bold; color: #00ff88;">🟢 ONLINE</p>
+                        <p style="margin: 10px 0;">Miembros activos: <strong>160</strong></p>
+                        <p>Staff en línea: <strong>12+</strong></p>
+                    </div>
+                    <p style="opacity: 0.8;">Promedio de respuesta: 2 minutos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="caracteristicas" class="features">
+        <div class="container">
+            <h2>¿Por qué elegir Capital RP?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Staff Profesional</h3>
+                    <p>Equipo de administradores capacitados disponible 24/7. Respuesta rápida y soluciones efectivas para cualquier situación.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚙️</div>
+                    <h3>Scripts Exclusivos</h3>
+                    <p>Sistemas desarrollados específicamente para nuestro servidor. Mecánicas únicas que no encontrarás en ningún otro lugar.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Eventos Únicos</h3>
+                    <p>Eventos semanales organizados por staff, competiciones, ceremonias y actividades que enriquecen la experiencia roleplay.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Economía Realista</h3>
+                    <p>Sistema económico balanceado con trabajos legales e ilegales, inversiones, propiedades y un mercado dinámico y realista.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <h3>Comunidad Activa</h3>
+                    <p>Más de 160 miembros activos en Discord. Ambiente respetuoso, maduro y dedicado al roleplay de calidad.</p>
+                </div>
+            </div>
+        </div>
+
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Capital RP</h3>
+                    <p>El servidor de roleplay más profesional y exclusivo. Únete a nuestra comunidad selecta.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Enlaces Rápidos</h3>
+                    <p><a href="#" style="color: #5865f2;">Reglas del Servidor</a></p>
+                    <p><a href="#" style="color: #5865f2;">Guía de Inicio</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Soporte</h3>
+                    <p>🎫 Sistema de tickets en Discord</p>
+                    <p>⏰ Disponible 24/7</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Capital RP. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para Discord -->
+    <div id="discordModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDiscordModal()">&times;</span>
+            <h2 style="color: #5865f2; margin-bottom: 1rem;">🎮 Únete a Capital RP</h2>
+            <p style="margin-bottom: 2rem;">Estás a punto de unirte al servidor de Discord más exclusivo de roleplay.</p>
+            
+            <div style="background: rgba(88, 101, 242, 0.1); padding: 1.5rem; border-radius: 15px; margin-bottom: 2rem;">
+                <h3 style="color: #5865f2; margin-bottom: 1rem;">📋 Antes de unirte:</h3>
+                <ul style="text-align: left; list-style: none;">
+                    <li style="margin: 8px 0;">✅ Ten experiencia en roleplay</li>
+                    <li style="margin: 8px 0;">✅ Respeta las reglas de la comunidad</li>
+                    <li style="margin: 8px 0;">✅ Mantén un comportamiento maduro</li>
+                </ul>
+            </div>
+            
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <a href="https://discord.gg/Db2g2sUNs3" target="_blank" class="discord-invite" style="margin: 0;">
+                    💬 Acceder al Discord
+                </a>
+                <button onclick="closeDiscordModal()" style="padding: 15px 25px; background: rgba(255,255,255,0.1); color: white; border: none; border-radius: 25px; cursor: pointer;">
+                    Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegación suave
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#') && href !== '#') {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Efectos del header al hacer scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(10, 10, 35, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(88, 101, 242, 0.3)';
+            } else {
+                header.style.background = 'rgba(10, 10, 35, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Funciones del modal de Discord
+        function openDiscordModal() {
+            document.getElementById('discordModal').style.display = 'block';
+        }
+
+        function closeDiscordModal() {
+            document.getElementById('discordModal').style.display = 'none';
+        }
+
+        function joinDiscord() {
+            // Aquí puedes cambiar la URL por tu enlace real de Discord
+            window.open('https://discord.gg/Db2g2sUNs3', '_blank');
+        }
+
+        // Cerrar modal al hacer click fuera
+        window.addEventListener('click', (e) => {
+            const modal = document.getElementById('discordModal');
+            if (e.target === modal) {
+                closeDiscordModal();
+            }
+        });
+
+        // Efecto de typing en el hero
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Contador animado para miembros
+        function animateCounter() {
+            const counter = document.querySelector('.discord-widget strong');
+            if (counter) {
+                let count = 0;
+                const target = 160;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(count);
+                    }
+                }, 20);
+            }
+        }
+
+        // Efectos de partículas flotantes
+        function createParticles() {
+            const hero = document.querySelector('.hero');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.style.position = 'absolute';
+                particle.style.width = '4px';
+                particle.style.height = '4px';
+                particle.style.background = '#5865f2';
+                particle.style.borderRadius = '50%';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.opacity = '0.6';
+                particle.style.animation = `float ${3 + Math.random() * 4}s ease-in-out infinite`;
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                hero.appendChild(particle);
+            }
+        }
+
+        // CSS para la animación de partículas
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { 
+                    transform: translateY(0px) rotate(0deg); 
+                    opacity: 0.6; 
+                }
+                50% { 
+                    transform: translateY(-20px) rotate(180deg); 
+                    opacity: 1; 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Inicializar efectos
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            animateCounter();
+            
+            // Añadir efecto de hover a las cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+
+        // Efecto de cambio de color en el logo
+        setInterval(() => {
+            const logo = document.querySelector('.logo');
+            const colors = [
+                'linear-gradient(135deg, #5865f2, #00d4ff)',
+                'linear-gradient(135deg, #ff6b6b, #4ecdc4)',
+                'linear-gradient(135deg, #a8edea, #fed6e3)',
+                'linear-gradient(135deg, #667eea, #764ba2)'
+            ];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            logo.style.background = randomColor;
+            logo.style.webkitBackgroundClip = 'text';
+            logo.style.webkitTextFillColor = 'transparent';
+            logo.style.backgroundClip = 'text';
+        }, 5000);
+
+        // Notificación de bienvenida
+        function showWelcomeNotification() {
+            const notification = document.createElement('div');
+            notification.innerHTML = `
+                <div style="position: fixed; top: 100px; right: 20px; background: linear-gradient(135deg, #5865f2, #7289da); color: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 30px rgba(88, 101, 242, 0.4); z-index: 1500; transform: translateX(400px); transition: all 0.5s ease;">
+                    <h4 style="margin: 0 0 10px 0;">🎮 ¡Bienvenido a Capital RP!</h4>
+                    <p style="margin: 0; font-size: 0.9rem;">Únete a más de 160 jugadores activos</p>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.firstElementChild.style.transform = 'translateX(0)';
+            }, 500);
+            
+            setTimeout(() => {
+                notification.firstElementChild.style.transform = 'translateX(400px)';
+                setTimeout(() => notification.remove(), 500);
+            }, 4000);
+        }
+
+        // Mostrar notificación después de 3 segundos
+        setTimeout(showWelcomeNotification, 3000);
+
+        // Efecto de pulsado en botones importantes
+        setInterval(() => {
+            document.querySelectorAll('.pulse').forEach(btn => {
+                btn.style.animation = 'none';
+                setTimeout(() => {
+                    btn.style.animation = 'pulse 2s infinite';
+                }, 10);
+            });
+        }, 10000);
+    </script>
+</body>
+</html>
